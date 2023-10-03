@@ -2,9 +2,8 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   labels:
-    app: example-app
     openshift.io/prometheus-rule-evaluation-scope: leaf-prometheus
-  name: example-app-alerting-rule
+  name: watchdogdown-alerting-rule
   namespace: openshift-monitoring
 spec:
   groups:
@@ -13,7 +12,7 @@ spec:
     # Alert if the watchdog alert is not firing for more than 5 minutes
     - alert: WatchdogDown
       expr: absent(alerts{alertname="Watchdog"})
-      for: 2m
+      for: 1m
       labels:
         severity: critical
       annotations:
