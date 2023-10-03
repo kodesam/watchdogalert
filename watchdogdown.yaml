@@ -8,23 +8,23 @@ metadata:
   namespace: openshift-monitoring
 spec:
   groups:
-- name: watchdog
-  rules:
-  # Alert if the watchdog alert is not firing for more than 5 minutes
-  - alert: WatchdogDown
-    expr: absent(alerts{alertname="Watchdog"})
-    for: 2m
-    labels:
-      severity: critical
-    annotations:
-      summary: "Watchdog alert is not firing"
-      description: "The alerting pipeline might be broken, check Alertmanager and Prometheus"
+  - name: watchdog
+    rules:
+    # Alert if the watchdog alert is not firing for more than 5 minutes
+    - alert: WatchdogDown
+      expr: absent(alerts{alertname="Watchdog"})
+      for: 2m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Watchdog alert is not firing"
+        description: "The alerting pipeline might be broken, check Alertmanager and Prometheus"
 
   # Alert if the watchdog alert is firing again after being down
-  - alert: WatchdogUp
-    expr: alerts{alertname="Watchdog"} and ON() ALERTS{alertname="WatchdogDown"}
-    labels:
-      severity: info
-    annotations:
-      summary: "Watchdog alert is firing again"
-      description: "The alerting pipeline is restored, clear the WatchdogDown alert"
+    - alert: WatchdogUp
+      expr: alerts{alertname="Watchdog"} and ON() ALERTS{alertname="WatchdogDown"}
+      labels:
+        severity: info
+      annotations:
+        summary: "Watchdog alert is firing again"
+        description: "The alerting pipeline is restored, clear the WatchdogDown alert"
