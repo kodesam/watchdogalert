@@ -11,7 +11,7 @@ spec:
     rules:
     # Alert if the watchdog alert is not firing for more than 5 minutes
     - alert: WatchdogDown
-      expr: {alertname="Watchdog"} == 1
+      expr: {alertname="Watchdog"} == 0
       for: 1m
       labels:
         severity: critical
