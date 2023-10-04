@@ -1,0 +1,151 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  annotations:
+    imageregistry.operator.openshift.io/checksum: sha256:c9e7461f3054b946264d3ef3c7407f239558c705add92551b5ab31531fb31d8b
+  creationTimestamp: "2023-04-11T20:01:31Z"
+  managedFields:
+  - apiVersion: batch/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:imageregistry.operator.openshift.io/checksum: {}
+      f:spec:
+        f:concurrencyPolicy: {}
+        f:failedJobsHistoryLimit: {}
+        f:jobTemplate:
+          f:metadata:
+            f:labels:
+              .: {}
+              f:created-by: {}
+          f:spec:
+            f:backoffLimit: {}
+            f:template:
+              f:spec:
+                f:affinity: {}
+                f:containers:
+                  k:{"name":"image-pruner"}:
+                    .: {}
+                    f:command: {}
+                    f:image: {}
+                    f:imagePullPolicy: {}
+                    f:name: {}
+                    f:resources:
+                      .: {}
+                      f:requests:
+                        .: {}
+                        f:cpu: {}
+                        f:memory: {}
+                    f:terminationMessagePath: {}
+                    f:terminationMessagePolicy: {}
+                    f:volumeMounts:
+                      .: {}
+                      k:{"mountPath":"/var/run/configmaps/serviceca"}:
+                        .: {}
+                        f:mountPath: {}
+                        f:name: {}
+                        f:readOnly: {}
+                f:dnsPolicy: {}
+                f:restartPolicy: {}
+                f:schedulerName: {}
+                f:securityContext: {}
+                f:serviceAccount: {}
+                f:serviceAccountName: {}
+                f:terminationGracePeriodSeconds: {}
+                f:volumes:
+                  .: {}
+                  k:{"name":"serviceca"}:
+                    .: {}
+                    f:configMap:
+                      .: {}
+                      f:defaultMode: {}
+                      f:name: {}
+                    f:name: {}
+        f:schedule: {}
+        f:startingDeadlineSeconds: {}
+        f:successfulJobsHistoryLimit: {}
+        f:suspend: {}
+    manager: cluster-image-registry-operator
+    operation: Update
+    time: "2023-04-11T20:17:02Z"
+  - apiVersion: batch/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:lastScheduleTime: {}
+    manager: kube-controller-manager
+    operation: Update
+    time: "2023-04-12T00:00:07Z"
+  - apiVersion: batch/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:jobTemplate:
+          f:spec:
+            f:template:
+              f:spec:
+                f:containers:
+                  k:{"name":"image-pruner"}:
+                    f:args: {}
+    manager: Mozilla
+    operation: Update
+    time: "2023-10-04T13:47:56Z"
+  name: image-pruner
+  namespace: openshift-image-registry
+  resourceVersion: "214479"
+  selfLink: /apis/batch/v1beta1/namespaces/openshift-image-registry/cronjobs/image-pruner
+  uid: 51effe49-f34b-458c-a057-0ca6af0d3bd0
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      labels:
+        created-by: image-pruner
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          affinity: {}
+          containers:
+          - args:
+            - get
+            - node
+            command:
+            - oc
+            image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:39b4304168499e0438d5653bec17fde88c629a42fd9209a28b4e5ade2df13740
+            imagePullPolicy: IfNotPresent
+            name: image-pruner
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: FallbackToLogsOnError
+            volumeMounts:
+            - mountPath: /var/run/configmaps/serviceca
+              name: serviceca
+              readOnly: true
+          dnsPolicy: ClusterFirst
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          securityContext: {}
+          serviceAccount: pruner
+          serviceAccountName: pruner
+          terminationGracePeriodSeconds: 30
+          volumes:
+          - configMap:
+              defaultMode: 420
+              name: serviceca
+            name: serviceca
+  schedule: 0 0 * * *
+  startingDeadlineSeconds: 3600
+  successfulJobsHistoryLimit: 3
+  suspend: false
+status:
+  lastScheduleTime: "2023-04-12T00:00:00Z"
