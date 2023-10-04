@@ -1,0 +1,18 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: oc-get-node
+spec:
+  schedule: "*/2 * * * *" # Run every 5 minutes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: oc-get-node
+            image: my-oc-image # Use your image
+            command: ["oc", "get", "node"] # Run your command
+            env:
+            - name: KUBECONFIG # Set the KUBECONFIG environment variable to point to the service account token file
+              value: /var/run/secrets/kubernetes.io/serviceaccount/token
+          restartPolicy: OnFailure
