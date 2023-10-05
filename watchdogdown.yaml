@@ -4,7 +4,7 @@ metadata:
   labels:
     openshift.io/prometheus-rule-evaluation-scope: leaf-prometheus
   name: watchdogdown-alerting-rule
-  namespace: openshift-monitoring
+  namespace: default
 spec:
   groups:
   - name: watchdog
