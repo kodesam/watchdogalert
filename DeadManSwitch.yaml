@@ -3,11 +3,11 @@ kind: PrometheusRule
 metadata:
   labels:
     openshift.io/prometheus-rule-evaluation-scope: leaf-prometheus
-  name: watchdog
+  name: watchdog2
   namespace: openshift-monitoring
 spec:
   groups:
-  - name: prom
+  - name: watchdog
     rules:
     - alert: PrometheusAlertmanagerE2eDeadManSwitch
     expr: vector(1)
