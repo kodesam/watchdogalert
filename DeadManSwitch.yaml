@@ -3,7 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     openshift.io/prometheus-rule-evaluation-scope: leaf-prometheus
-  name: prometheusAlertmanagerE2eDeadManSwitch
+  name: prom
   namespace: openshift-monitoring
 spec:
   groups:
