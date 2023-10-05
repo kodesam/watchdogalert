@@ -3,13 +3,11 @@ kind: PrometheusRule
 metadata:
   labels:
     openshift.io/prometheus-rule-evaluation-scope: leaf-prometheus
-  name: PrometheusAlertmanagerE2eDeadManSwitch
+  name: prometheusAlertmanagerE2eDeadManSwitch
   namespace: openshift-monitoring
 spec:
   groups:
-  - name: watchdog
-    rules:
-    # Alert if the watchdog alert is not firing for more than 5 minutes
+  - name: prom
     - alert: PrometheusAlertmanagerE2eDeadManSwitch
     expr: vector(1)
     for: 0m
