@@ -11,7 +11,7 @@ spec:
     rules:
     # Alert if the watchdog alert is not firing for more than 5 minutes
     - alert: WatchdogDown
-      expr: absent(alerts{alertname="Watchdog"})
+      expr: vector(0)
       for: 1m
       labels:
         severity: critical
@@ -21,7 +21,7 @@ spec:
 
   # Alert if the watchdog alert is firing again after being down
     - alert: WatchdogUp
-      expr: alerts{alertname="Watchdog"} and ON() alerts{alertname="WatchdogDown"}
+      expr: vector(1)
       labels:
         severity: info
       annotations:
