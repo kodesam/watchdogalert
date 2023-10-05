@@ -8,6 +8,7 @@ metadata:
 spec:
   groups:
   - name: prom
+    rules:
     - alert: PrometheusAlertmanagerE2eDeadManSwitch
     expr: vector(1)
     for: 0m
