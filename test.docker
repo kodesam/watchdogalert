@@ -1,0 +1,126 @@
+ADD file:524e8d93ad65f08a0cb0d144268350186e36f508006b05b8faf2e1289499b59f in / 
+CMD ["bash"]
+LABEL maintainer=Jupyter Project <jupyter@googlegroups.com>
+ARG NB_USER=jovyan
+ARG NB_UID=1000
+ARG NB_GID=100
+SHELL [/bin/bash -o pipefail -c]
+USER root
+ARG conda_version=4.10.3
+ARG miniforge_patch_number=3
+ARG miniforge_python=Mambaforge
+ARG miniforge_version=4.10.3-3
+ENV DEBIAN_FRONTEND=noninteractive
+RUN |7 NB_USER=jovyan NB_UID=1000 NB_GID=100
+ENV CONDA_DIR=/opt/conda SHELL=/bin/bash NB_USER=jovyan NB_UID=1000
+ENV PATH=/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/home/jovyan CONDA_VERSION=4.10.3 MINIFORGE_VERSION=4.10.3-3
+COPY fix-permissions /usr/local/bin/fix-permissions # buildkit
+RUN |7 NB_USER=jovyan NB_UID=1000 NB_GID=100
+RUN |7 NB_USER=jovyan NB_UID=1000 NB_GID=100
+RUN |7 NB_USER=jovyan NB_UID=1000 NB_GID=100
+USER 1000
+ARG PYTHON_VERSION=default
+RUN |8 NB_USER=jovyan NB_UID=1000 NB_GID=100
+WORKDIR /tmp
+RUN |8 NB_USER=jovyan NB_UID=1000 NB_GID=100
+RUN |8 NB_USER=jovyan NB_UID=1000 NB_GID=100
+EXPOSE map[8888/tcp:{}]
+ENTRYPOINT ["tini" "-g" "--"]
+CMD ["start-notebook.sh"]
+COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
+COPY jupyter_notebook_config.py /etc/jupyter/ # buildkit
+USER root
+RUN |8 NB_USER=jovyan NB_UID=1000 NB_GID=100
+USER 1000
+WORKDIR /home/jovyan
+LABEL maintainer=Jupyter Project <jupyter@googlegroups.com>
+USER root
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+USER 1000
+USER root
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+ADD tracker.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/notebook-extension/tracker.jupyterlab-settings # buildkit
+ADD shortcuts.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/shortcuts-extension/shortcuts.jupyterlab-settings # buildkit
+RUN /bin/bash -o pipefail -c
+ADD completion.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/@krassowski # buildkit
+RUN /bin/bash -o pipefail -c
+COPY kernel.json /opt/conda/share/jupyter/kernels/python3/kernel.json # buildkit
+COPY code_snippets.* /var/unskript/ # buildkit
+RUN /bin/bash -o pipefail -c
+COPY banner.sh /home/jovyan/.banner.sh # buildkit
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+COPY creds/* /home/jovyan/.local/share/jupyter/metadata/credential-save/ # buildkit
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+COPY config/unskript_ctl_config.yaml /etc/unskript/ # buildkit
+COPY start.sh . # buildkit
+RUN /bin/bash -o pipefail -c
+COPY local_sync.sh . # buildkit
+RUN /bin/bash -o pipefail -c
+ENV PYTHONWARNINGS=ignore
+ADD downloads /tmp/downloads # buildkit
+RUN /bin/bash -o pipefail -c
+ADD unskript/unskript/runbooks /tmp/runbooks/unskript # buildkit
+COPY runbooks/Welcome.ipynb /tmp/runbooks/Welcome.ipynb # buildkit
+COPY gen_welcome_ipynb.py /usr/share/unskript/ # buildkit
+COPY runbooks/template.ipynb /usr/share/unskript/ # buildkit
+COPY init_db.py /usr/share/unskript/ # buildkit
+COPY unskript-ctl.sh unskript*py unskript_global* db_utils*
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+COPY install_utils.sh . # buildkit
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+COPY yaml/* /usr/share/unskript # buildkit
+RUN /bin/bash -o pipefail -c
+ENV PATH=/usr/local/kafka/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ADD requirements_base.txt /tmp # buildkit
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+ADD unskript/packaging /usr/share/unskript/packaging # buildkit
+COPY unskript/utils/gen* /usr/share/unskript/ # buildkit
+COPY unskript/Makefile.contrib /usr/share/unskript/ # buildkit
+RUN /bin/bash -o pipefail -c
+COPY Welcome_template.md /opt/conda/lib/python3.9/site-packages/elyra/awesome/Welcome_template.md # buildkit
+RUN /bin/bash -o pipefail -c
+WORKDIR /home/jovyan
+RUN /bin/bash -o pipefail -c
+USER root
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+RUN /bin/bash -o pipefail -c
+ADD motd.txt /tmp/motd.txt # buildkit
+RUN /bin/bash -o pipefail -c
+ENV NB_USER=jovyan
+ENV CHOWN_HOME=yes
+ENV CHOWN_EXTRA_OPTS=-R
+CMD ["./start.sh"]
+COPY unskript_ctl_config.yaml /etc/unskript/unskript_ctl_config.yaml # buildkit
+COPY unskript_ctl_gen_report.py /usr/local/bin/unskript_ctl_gen_report.py # buildkit
+CMD ["./start.sh"]
+COPY unskript_ctl_config.yaml /etc/unskript/unskript_ctl_config.yaml # buildkit
+COPY unskript_ctl_gen_report.py /usr/local/bin/unskript_ctl_gen_report.py # buildkit
+CMD ["./start.sh"]
